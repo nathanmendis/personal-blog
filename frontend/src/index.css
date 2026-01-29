@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-valorant-dark text-valorant-light font-body overflow-x-hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-heading uppercase;
+  }
+}
+
+/* Custom scrollbar for Webkit */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-valorant-dark;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-valorant-red;
+}
