@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 const experiences = [
     {
@@ -17,17 +17,33 @@ const experiences = [
 ];
 
 const Experience = () => {
+    const containerRef = useRef(null);
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ["start end", "end center"]
+    });
+
+    const height = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+
     return (
         <section id="experience" className="py-20 relative">
             <div className="flex flex-col items-center mb-16">
-                <h2 className="text-4xl md:text-5xl font-heading font-bold">
-                    <span className="text-valorant-red">/</span> MISSION HISTORY
+                <h2 className="text-4xl md:text-5xl font-heading font-bold relative inline-block text-white">
+                    PROFESSIONAL EXPERIENCE
+                    <div className="absolute -bottom-4 left-0 w-1/2 h-1 bg-gradient-to-r from-primary to-transparent rounded-full"></div>
                 </h2>
-                <div className="h-1 w-20 bg-valorant-red mt-4"></div>
             </div>
 
-            <div className="max-w-4xl mx-auto px-4">
-                <div className="relative border-l-2 border-white/20 ml-4 md:ml-0 space-y-12 pl-8 md:pl-0">
+            <div ref={containerRef} className="max-w-4xl mx-auto px-4 relative">
+                {/* Timeline Line Container */}
+                <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 -ml-px bg-white/10 h-full">
+                    <motion.div
+                        style={{ height: height }}
+                        className="absolute top-0 left-0 w-full bg-gradient-to-b from-primary via-secondary to-primary shadow-[0_0_15px_rgba(168,85,247,0.8)]"
+                    />
+                </div>
+
+                <div className="space-y-12">
                     {experiences.map((exp, index) => (
                         <motion.div
                             key={index}
@@ -37,14 +53,15 @@ const Experience = () => {
                             className="relative md:flex items-center justify-between group"
                         >
                             {/* Timeline Dot */}
-                            <div className="absolute -left-[41px] md:left-1/2 md:-ml-[9px] w-5 h-5 bg-valorant-dark border-2 border-valorant-red rounded-full z-10 group-hover:bg-valorant-red transition-colors"></div>
+                            {/* Adjusted left position to match the new line: left-8 (32px) for mobile, left-1/2 for desktop */}
+                            <div className="absolute left-[23px] md:left-1/2 md:-ml-2 w-4 h-4 rounded-full z-10 bg-glass-dark border-2 border-primary group-hover:bg-primary group-hover:shadow-[0_0_15px_rgba(168,85,247,0.6)] transition-all duration-300"></div>
 
-                            {/* Content Card (Left or Right based on index for desktop) */}
-                            <div className={`md:w-5/12 ${index % 2 === 0 ? 'md:mr-auto' : 'md:ml-auto md:text-right'} relative`}>
-                                <div className="bg-white/5 border border-white/10 p-6 hover:border-valorant-red/50 transition-all cursor-crosshair">
-                                    <span className="text-valorant-red font-mono text-sm tracking-widest">{exp.period}</span>
+                            {/* Content Card */}
+                            <div className={`md:w-5/12 ${index % 2 === 0 ? 'md:mr-auto pl-16 md:pl-0' : 'md:ml-auto pl-16 md:pl-0 md:text-right'} relative`}>
+                                <div className="glass-panel p-6 rounded-xl hover:border-primary/30 transition-all duration-300">
+                                    <span className="text-primary font-mono text-sm tracking-widest">{exp.period}</span>
                                     <h3 className="text-xl font-heading font-bold text-white mt-1">{exp.role}</h3>
-                                    <h4 className="text-lg font-heading text-gray-400 mb-4">{exp.company}</h4>
+                                    <h4 className="text-lg font-body font-medium text-gray-400 mb-4">{exp.company}</h4>
                                     <p className="text-gray-300 font-body text-sm leading-relaxed">
                                         {exp.description}
                                     </p>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Send, AlertCircle, CheckCircle, Radio, Shield, Terminal } from 'lucide-react';
+import { Send, AlertCircle, CheckCircle, Mail, MapPin } from 'lucide-react';
 import api from '../../services/api';
 
 const Contact = () => {
@@ -8,12 +8,17 @@ const Contact = () => {
         name: '',
         email: '',
         subject: 'General Inquiry',
-        message: ''
+        message: '',
+        sendToSelf: false
     });
     const [status, setStatus] = useState('idle');
 
     const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        const { name, value, type, checked } = e.target;
+        setFormData({
+            ...formData,
+            [name]: type === 'checkbox' ? checked : value
+        });
     };
 
     const handleSubmit = async (e) => {
@@ -22,7 +27,7 @@ const Contact = () => {
         try {
             await api.post('/contact/', formData);
             setStatus('success');
-            setFormData({ name: '', email: '', subject: 'General Inquiry', message: '' });
+            setFormData({ name: '', email: '', subject: 'General Inquiry', message: '', sendToSelf: false });
         } catch (error) {
             console.error('Contact error:', error);
             setStatus('error');
@@ -32,168 +37,172 @@ const Contact = () => {
     return (
         <section id="contact" className="py-20 relative">
             <div className="max-w-6xl mx-auto px-4">
-                <div className="flex flex-col md:flex-row gap-8">
+                <div className="flex flex-col md:flex-row gap-12">
 
                     {/* Left Panel - Visual/Info */}
                     <div className="md:w-5/12">
-                        <div className="bg-valorant-dark/80 backdrop-blur-sm border border-white/10 p-8 h-full relative overflow-hidden group">
-                            <div className="absolute top-0 right-0 p-4 opacity-20 group-hover:opacity-40 transition-opacity">
-                                <Shield size={120} className="text-valorant-red" />
+                        <div className="glass-panel p-8 h-full relative overflow-hidden rounded-2xl flex flex-col justify-between">
+
+                            <div>
+                                <h2 className="text-4xl font-heading font-bold mb-6 text-white">
+                                    Let's <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Collab</span>
+                                </h2>
+                                <p className="text-gray-400 font-body text-lg leading-relaxed mb-12">
+                                    Have a project in mind or just want to say hi? I'm always open to discussing new projects, creative ideas or opportunities to be part of your vision.
+                                </p>
                             </div>
 
-                            <h2 className="text-4xl font-heading font-bold mb-6">
-                                SECURE <br />
-                                <span className="text-valorant-red">CHANNEL</span>
-                            </h2>
-
-                            <div className="space-y-8 font-mono text-sm text-gray-400">
-                                <div className="p-4 border border-white/10 bg-black/20">
-                                    <p className="mb-2 text-valorant-red uppercase tracking-widest text-xs font-bold">STATUS</p>
-                                    <div className="flex items-center gap-2 text-green-400">
-                                        <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                                        OPEN FOR ASSIGNMENTS
+                            <div className="space-y-8 font-body text-sm text-gray-300">
+                                <div className="flex items-center gap-4 group cursor-pointer">
+                                    <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">
+                                        <Mail size={20} />
+                                    </div>
+                                    <div>
+                                        <p className="text-xs uppercase tracking-wider mb-1 text-gray-500">Email Me</p>
+                                        <p className="text-white text-lg font-medium group-hover:text-primary transition-colors">nathanmendis17@gmail.com</p>
                                     </div>
                                 </div>
 
-                                <div className="space-y-4">
-                                    <div className="flex gap-4 items-center">
-                                        <div className="w-10 h-10 border border-white/20 flex items-center justify-center text-valorant-red">
-                                            <Terminal size={20} />
-                                        </div>
-                                        <div>
-                                            <p className="text-xs uppercase tracking-wider mb-1">Direct Line</p>
-                                            <p className="text-white hover:text-valorant-red transition-colors cursor-pointer">nathanmendis17@gmail.com</p>
-                                        </div>
+                                <div className="flex items-center gap-4 group">
+                                    <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-secondary group-hover:bg-secondary group-hover:text-white transition-all duration-300">
+                                        <MapPin size={20} />
                                     </div>
-
-                                    <div className="flex gap-4 items-center">
-                                        <div className="w-10 h-10 border border-white/20 flex items-center justify-center text-valorant-red">
-                                            <Radio size={20} />
-                                        </div>
-                                        <div>
-                                            <p className="text-xs uppercase tracking-wider mb-1">Frequency</p>
-                                            <p className="text-white">Encrypted // TLS 1.3</p>
-                                        </div>
+                                    <div>
+                                        <p className="text-xs uppercase tracking-wider mb-1 text-gray-500">Location</p>
+                                        <p className="text-white text-lg font-medium">Remote / Worldwide</p>
                                     </div>
-                                </div>
-
-                                <div className="mt-12 opacity-50 text-[10px]">
-                                    <p>SYSTEM ID: N-01-A</p>
-                                    <p>PROTOCOL: HANDSHAKE</p>
-                                    <p>COORDINATES: UNKNOWN</p>
                                 </div>
                             </div>
+
+                            {/* Decorative orb */}
+                            <div className="absolute -bottom-20 -right-20 w-64 h-64 bg-primary/20 rounded-full blur-[80px] pointer-events-none"></div>
                         </div>
                     </div>
 
                     {/* Right Panel - The Form */}
                     <div className="md:w-7/12">
-                        <div className="bg-white/5 border border-white/10 p-1 relative">
-                            {/* Corner accents */}
-                            <div className="absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-valorant-red"></div>
-                            <div className="absolute -bottom-1 -right-1 w-4 h-4 border-b-2 border-r-2 border-valorant-red"></div>
-
-                            <form onSubmit={handleSubmit} className="bg-valorant-dark p-8 space-y-6">
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    <div className="space-y-2">
-                                        <label className="text-xs font-bold text-gray-500 uppercase tracking-widest pl-1">Agent ID / Name</label>
-                                        <input
-                                            type="text"
-                                            name="name"
-                                            value={formData.name}
-                                            onChange={handleChange}
-                                            required
-                                            className="w-full bg-black/40 border-b-2 border-white/10 focus:border-valorant-red px-4 py-3 text-white placeholder-gray-600 outline-none transition-all font-mono text-sm hover:bg-black/60"
-                                            placeholder="ENTER NAME"
-                                        />
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label className="text-xs font-bold text-gray-500 uppercase tracking-widest pl-1">Contact Freq / Email</label>
-                                        <input
-                                            type="email"
-                                            name="email"
-                                            value={formData.email}
-                                            onChange={handleChange}
-                                            required
-                                            className="w-full bg-black/40 border-b-2 border-white/10 focus:border-valorant-red px-4 py-3 text-white placeholder-gray-600 outline-none transition-all font-mono text-sm hover:bg-black/60"
-                                            placeholder="ENTER EMAIL"
-                                        />
-                                    </div>
-                                </div>
-
+                        <form onSubmit={handleSubmit} className="glass-panel p-8 rounded-2xl space-y-6">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div className="space-y-2">
-                                    <label className="text-xs font-bold text-gray-500 uppercase tracking-widest pl-1">Mission Type</label>
-                                    <select
-                                        name="subject"
-                                        value={formData.subject}
-                                        onChange={handleChange}
-                                        className="w-full bg-black/40 border-b-2 border-white/10 focus:border-valorant-red px-4 py-3 text-white/80 outline-none transition-all font-mono text-sm hover:bg-black/60 appearance-none"
-                                    >
-                                        <option value="General Inquiry">General Inquiry</option>
-                                        <option value="Freelance Project">Freelance Mission</option>
-                                        <option value="Collaboration">Tactical Alliance (Collab)</option>
-                                        <option value="Recruitment">Recruitment</option>
-                                    </select>
-                                </div>
-
-                                <div className="space-y-2">
-                                    <label className="text-xs font-bold text-gray-500 uppercase tracking-widest pl-1">Briefing Data</label>
-                                    <textarea
-                                        name="message"
-                                        value={formData.message}
+                                    <label className="text-xs font-bold text-gray-400 uppercase tracking-widest pl-1">Your Name</label>
+                                    <input
+                                        type="text"
+                                        name="name"
+                                        value={formData.name}
                                         onChange={handleChange}
                                         required
-                                        rows="5"
-                                        className="w-full bg-black/40 border-l-2 border-white/10 focus:border-valorant-red px-4 py-3 text-white placeholder-gray-600 outline-none transition-all font-mono text-sm resize-none hover:bg-black/60 focus:bg-white/5"
-                                        placeholder="TRANSMIT YOUR MESSAGE..."
-                                    ></textarea>
+                                        className="w-full bg-white/5 border border-white/10 rounded-lg focus:border-primary focus:ring-1 focus:ring-primary px-4 py-3 text-white placeholder-gray-600 outline-none transition-all font-body text-sm"
+                                        placeholder="John Doe"
+                                    />
                                 </div>
-
-                                <div className="pt-4 flex justify-end">
-                                    <button
-                                        type="submit"
-                                        disabled={status === 'loading'}
-                                        className={`
-                                            relative px-8 py-4 font-heading font-bold tracking-widest uppercase transition-all
-                                            clip-path-polygon hover:bg-white hover:text-valorant-dark
-                                            ${status === 'loading' ? 'bg-gray-600 cursor-not-allowed' : 'bg-valorant-red text-white'}
-                                        `}
-                                        style={{ clipPath: 'polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%)' }}
-                                    >
-                                        <span className="flex items-center gap-2">
-                                            {status === 'loading' ? 'ENCRYPTING...' :
-                                                status === 'success' ? 'SENT' :
-                                                    'INITIATE UPLOAD'}
-
-                                            {status === 'success' ? <CheckCircle size={18} /> :
-                                                status === 'loading' ? null : <Send size={18} />}
-                                        </span>
-                                    </button>
+                                <div className="space-y-2">
+                                    <label className="text-xs font-bold text-gray-400 uppercase tracking-widest pl-1">Email Address</label>
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        value={formData.email}
+                                        onChange={handleChange}
+                                        required
+                                        className="w-full bg-white/5 border border-white/10 rounded-lg focus:border-primary focus:ring-1 focus:ring-primary px-4 py-3 text-white placeholder-gray-600 outline-none transition-all font-body text-sm"
+                                        placeholder="john@example.com"
+                                    />
                                 </div>
+                            </div>
 
-                                {status === 'success' && (
-                                    <motion.div
-                                        initial={{ opacity: 0, y: 10 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        className="bg-green-500/10 border border-green-500/30 p-4 flex items-center gap-3"
-                                    >
-                                        <CheckCircle className="text-green-500" size={20} />
-                                        <p className="text-green-400 text-sm font-mono">TRANSMISSION SUCCESSFUL. STAND BY FOR RESPONSE.</p>
-                                    </motion.div>
-                                )}
+                            <div className="space-y-2">
+                                <label className="text-xs font-bold text-gray-400 uppercase tracking-widest pl-1">Subject</label>
+                                <select
+                                    name="subject"
+                                    value={formData.subject}
+                                    onChange={handleChange}
+                                    className="w-full bg-white/5 border border-white/10 rounded-lg focus:border-primary focus:ring-1 focus:ring-primary px-4 py-3 text-white outline-none transition-all font-body text-sm appearance-none"
+                                >
+                                    <option value="General Inquiry" className="bg-glass-dark text-white">General Inquiry</option>
+                                    <option value="Freelance Project" className="bg-glass-dark text-white">Freelance Project</option>
+                                    <option value="Collaboration" className="bg-glass-dark text-white">Collaboration</option>
+                                    <option value="Recruitment" className="bg-glass-dark text-white">Recruitment</option>
+                                </select>
+                            </div>
 
-                                {status === 'error' && (
-                                    <motion.div
-                                        initial={{ opacity: 0, y: 10 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        className="bg-red-500/10 border border-red-500/30 p-4 flex items-center gap-3"
-                                    >
-                                        <AlertCircle className="text-red-500" size={20} />
-                                        <p className="text-red-400 text-sm font-mono">TRANSMISSION FAILED. ENCRYPTION ERROR. TRY AGAIN.</p>
-                                    </motion.div>
-                                )}
-                            </form>
-                        </div>
+                            <div className="space-y-2">
+                                <label className="text-xs font-bold text-gray-400 uppercase tracking-widest pl-1">Message</label>
+                                <textarea
+                                    name="message"
+                                    value={formData.message}
+                                    onChange={handleChange}
+                                    required
+                                    rows="5"
+                                    className="w-full bg-white/5 border border-white/10 rounded-lg focus:border-primary focus:ring-1 focus:ring-primary px-4 py-3 text-white placeholder-gray-600 outline-none transition-all font-body text-sm resize-none"
+                                    placeholder="Tell me about your project..."
+                                ></textarea>
+                            </div>
+
+                            <div className="flex items-center gap-3 pt-2">
+                                <div className="relative inline-block w-11 h-6 transition duration-200 ease-in-out">
+                                    <input
+                                        type="checkbox"
+                                        name="sendToSelf"
+                                        id="sendToSelf"
+                                        checked={formData.sendToSelf}
+                                        onChange={handleChange}
+                                        className="opacity-0 w-0 h-0 absolute"
+                                    />
+                                    <label
+                                        htmlFor="sendToSelf"
+                                        className={`block overflow-hidden h-6 rounded-full cursor-pointer border border-white/10 transition-colors duration-200 ${formData.sendToSelf ? 'bg-primary' : 'bg-white/10'}`}
+                                    ></label>
+                                    <label
+                                        htmlFor="sendToSelf"
+                                        className={`absolute top-1 left-1 bg-white w-4 h-4 rounded-full shadow transition-transform duration-200 ease-in-out cursor-pointer ${formData.sendToSelf ? 'translate-x-5' : 'translate-x-0'}`}
+                                    ></label>
+                                </div>
+                                <label htmlFor="sendToSelf" className="text-gray-400 font-body text-xs cursor-pointer select-none tracking-wide">
+                                    Send a copy to my email
+                                </label>
+                            </div>
+
+                            <div className="pt-2 flex justify-end">
+                                <button
+                                    type="submit"
+                                    disabled={status === 'loading'}
+                                    className={`
+                                        group relative px-8 py-3 rounded-full font-medium tracking-wide transition-all duration-300
+                                        ${status === 'loading' ? 'bg-white/10 cursor-not-allowed' : 'bg-gradient-to-r from-primary to-secondary hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] text-white'}
+                                    `}
+                                >
+                                    <span className="flex items-center gap-2">
+                                        {status === 'loading' ? 'Sending...' :
+                                            status === 'success' ? 'Message Sent' :
+                                                'Send Message'}
+
+                                        {status === 'success' ? <CheckCircle size={18} /> :
+                                            status === 'loading' ? null : <Send size={18} className="group-hover:translate-x-1 transition-transform" />}
+                                    </span>
+                                </button>
+                            </div>
+
+                            {status === 'success' && (
+                                <motion.div
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    className="bg-green-500/10 border border-green-500/20 rounded-lg p-4 flex items-center gap-3"
+                                >
+                                    <CheckCircle className="text-green-500" size={20} />
+                                    <p className="text-green-400 text-sm">Message sent successfully! I'll get back to you soon.</p>
+                                </motion.div>
+                            )}
+
+                            {status === 'error' && (
+                                <motion.div
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    className="bg-red-500/10 border border-red-500/20 rounded-lg p-4 flex items-center gap-3"
+                                >
+                                    <AlertCircle className="text-red-500" size={20} />
+                                    <p className="text-red-400 text-sm">Something went wrong. Please try again later.</p>
+                                </motion.div>
+                            )}
+                        </form>
                     </div>
                 </div>
             </div>

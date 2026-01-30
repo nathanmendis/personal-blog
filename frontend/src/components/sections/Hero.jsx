@@ -1,6 +1,7 @@
-import React, { useRef } from 'react';
+import React, { useRef, Suspense } from 'react';
+import Hero3D from './Hero3D';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
-import { Download, ChevronRight } from 'lucide-react';
+import { Download, ChevronRight, Github, Linkedin } from 'lucide-react';
 
 const Hero = () => {
     const ref = useRef(null);
@@ -10,7 +11,7 @@ const Hero = () => {
     return (
         <section ref={ref} className="relative min-h-screen flex items-center justify-start overflow-hidden pt-20">
             {/* 3D Background Elements - Simple Parallax */}
-            <motion.div style={{ y }} className="absolute right-[-10%] top-[20%] w-[50vw] h-[50vw] bg-valorant-red/5 rounded-full blur-[100px] pointer-events-none" />
+            <motion.div style={{ y }} className="absolute right-[-10%] top-[20%] w-[50vw] h-[50vw] bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
 
             <div className="relative z-10 max-w-7xl mx-auto px-4 w-full grid md:grid-cols-12 gap-12 items-center">
 
@@ -22,9 +23,9 @@ const Hero = () => {
                         transition={{ duration: 0.8 }}
                         className="flex items-center gap-4"
                     >
-                        <div className="h-[2px] w-12 bg-valorant-red"></div>
-                        <span className="text-valorant-red font-mono tracking-widest text-sm font-bold uppercase">
-                            Warning: High Capability Agent
+                        <div className="h-[1px] w-12 bg-primary"></div>
+                        <span className="text-primary font-mono tracking-widest text-sm font-medium uppercase">
+                            Available for hire
                         </span>
                     </motion.div>
 
@@ -33,28 +34,23 @@ const Hero = () => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 0.2 }}
-                            className="text-7xl md:text-9xl font-heading font-bold text-white uppercase leading-[0.8] tracking-tighter"
+                            className="text-6xl md:text-8xl font-heading font-bold text-white tracking-tight leading-none"
                         >
                             Nathan <br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-valorant-red via-white to-white/50 animate-pulse">
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-white to-secondary text-glow">
                                 Mendis
                             </span>
                         </motion.h1>
-
-                        {/* Glitch Overlay Text */}
-                        <div className="absolute top-0 left-0 w-full h-full opacity-0 pointer-events-none mix-blend-overlay md:text-9xl font-heading font-bold uppercase leading-[0.8] tracking-tighter text-red-500 animate-pulse select-none" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 45%, 0 45%)', transform: 'translate(-5px, -5px)' }}>
-                            Nathan <br /> Mendis
-                        </div>
                     </div>
 
                     <motion.p
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.8, delay: 0.4 }}
-                        className="text-xl text-gray-400 font-body max-w-xl border-l-4 border-valorant-red pl-6 leading-relaxed"
+                        className="text-lg text-gray-400 font-body max-w-xl pl-1 leading-relaxed"
                     >
                         AI & Full-Stack Engineer deploying intelligent, scalable systems.
-                        Specialized in <span className="text-white font-bold">Agentic AI</span>, <span className="text-white font-bold">Django Architecture</span>, and <span className="text-white font-bold">React Interfaces</span>.
+                        Specialized in <span className="text-white font-medium">Autonomous Systems</span>, <span className="text-white font-medium">Django Architecture</span>, and <span className="text-white font-medium">React Interfaces</span>.
                     </motion.p>
 
                     <motion.div
@@ -66,80 +62,58 @@ const Hero = () => {
                         <a
                             href="/resume.pdf"
                             target="_blank"
-                            className="group relative inline-flex items-center gap-3 px-8 py-4 bg-valorant-red text-white hover:text-valorant-dark font-heading tracking-wider uppercase font-bold overflow-hidden clip-path-polygon transition-colors"
-                            style={{ clipPath: 'polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%)' }}
+                            className="group relative inline-flex items-center gap-3 px-8 py-3 bg-gradient-to-r from-primary-dark to-primary text-white hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] rounded-full font-medium transition-all duration-300 transform hover:-translate-y-1"
                         >
                             <span className="relative z-10 flex items-center gap-2">
                                 <Download size={20} /> Download Resume
                             </span>
-                            <div className="absolute inset-0 bg-white transform -translate-x-full skew-x-12 group-hover:translate-x-0 transition-transform duration-300 origin-left"></div>
                         </a>
 
                         <a
                             href="#projects"
-                            className="group inline-flex items-center gap-3 px-8 py-4 border border-white/20 text-white font-heading tracking-wider uppercase font-bold hover:bg-white/5 transition-all"
+                            className="group inline-flex items-center gap-3 px-8 py-3 glass-button rounded-full text-white font-medium hover:border-white/30 transition-all"
                         >
-                            <span className="relative z-10">View Assignments</span>
+                            <span className="relative z-10">View Projects</span>
                             <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
                         </a>
+
+                        <div className="flex gap-4">
+                            <a
+                                href="https://github.com/nathanmendis"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="p-3 bg-white/10 hover:bg-white/20 border border-white/20 rounded-full text-white transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(255,255,255,0.3)]"
+                                aria-label="GitHub Profile"
+                            >
+                                <Github size={20} />
+                            </a>
+                            <a
+                                href="https://www.linkedin.com/in/nathan-mendis-a2318122a/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="p-3 bg-white/10 hover:bg-white/20 border border-white/20 rounded-full text-white transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(255,255,255,0.3)]"
+                                aria-label="LinkedIn Profile"
+                            >
+                                <Linkedin size={20} />
+                            </a>
+                        </div>
                     </motion.div>
                 </div>
 
                 {/* 3D Decorative / Stats Element */}
                 <div className="hidden md:block md:col-span-5 relative">
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.8, rotateY: 30 }}
-                        animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-                        transition={{ duration: 1, delay: 0.5 }}
-                        className="relative w-full aspect-square"
-                    >
-                        {/* Rotating ring effect */}
-                        <div className="absolute inset-0 border-2 border-dashed border-white/10 rounded-full animate-[spin_20s_linear_infinite]"></div>
-                        <div className="absolute inset-10 border border-valorant-red/20 rounded-full animate-[spin_15s_linear_infinite_reverse]"></div>
-
-                        {/* Card */}
-                        <div className="absolute inset-0 flex items-center justify-center">
-                            <div className="w-64 h-80 bg-valorant-dark/80 backdrop-blur-xl border border-white/10 p-6 flex flex-col justify-between transform rotate-[-5deg] hover:rotate-0 transition-transform duration-500 shadow-2xl">
-                                <div className="text-right">
-                                    <span className="block text-xs font-mono text-valorant-red">CLASS: ENGINEER</span>
-                                    <span className="block text-4xl font-heading font-bold text-white">01</span>
-                                </div>
-                                <div className="space-y-4">
-                                    <div className="space-y-1">
-                                        <div className="flex justify-between text-xs font-mono text-gray-400">
-                                            <span>PYTHON</span>
-                                            <span>98%</span>
-                                        </div>
-                                        <div className="h-1 bg-white/10 w-full"><div className="h-full bg-valorant-red w-[98%]"></div></div>
-                                    </div>
-                                    <div className="space-y-1">
-                                        <div className="flex justify-between text-xs font-mono text-gray-400">
-                                            <span>REACT</span>
-                                            <span>90%</span>
-                                        </div>
-                                        <div className="h-1 bg-white/10 w-full"><div className="h-full bg-valorant-red w-[90%]"></div></div>
-                                    </div>
-                                    <div className="space-y-1">
-                                        <div className="flex justify-between text-xs font-mono text-gray-400">
-                                            <span>AI / ML</span>
-                                            <span>95%</span>
-                                        </div>
-                                        <div className="h-1 bg-white/10 w-full"><div className="h-full bg-valorant-red w-[95%]"></div></div>
-                                    </div>
-                                </div>
-                                <div className="text-xs font-mono text-gray-500 truncate">
-                                    ID: 8a7-9b2-c13
-                                </div>
-                            </div>
-                        </div>
-                    </motion.div>
+                    <div className="w-[400px] h-[400px] rounded-full overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm flex items-center justify-center relative z-10 shadow-[0_0_40px_rgba(168,85,247,0.15)]">
+                        <Suspense fallback={<div className="w-full h-full flex items-center justify-center"><div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin"></div></div>}>
+                            <Hero3D />
+                        </Suspense>
+                    </div>
                 </div>
             </div>
 
             {/* Giant Background Text */}
             <div className="absolute bottom-0 left-0 w-full overflow-hidden pointer-events-none opacity-[0.03]">
                 <h1 className="text-[20vw] font-heading font-bold text-white whitespace-nowrap leading-none tracking-tighter transform translate-y-1/3">
-                    AGENT
+                    DEV
                 </h1>
             </div>
         </section>

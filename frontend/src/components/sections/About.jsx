@@ -14,7 +14,7 @@ const About = () => {
 
                     <div className="bg-valorant-dark border border-white/5 p-8 relative overflow-hidden group">
                         <div className="absolute inset-0 bg-valorant-red/5 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
-                        <h3 className="text-2xl font-heading mb-4 relative z-10">MISSION BRIEFING</h3>
+                        <h3 className="text-2xl font-heading mb-4 relative z-10">PROFESSIONAL PROFILE</h3>
                         <p className="text-gray-300 font-body relative z-10 mb-4">
                             I’m an AI-focused full-stack developer who loves solving practical problems using clean backend architecture and intelligent systems.
                         </p>
@@ -32,7 +32,7 @@ const About = () => {
                     transition={{ duration: 0.6 }}
                 >
                     <h2 className="text-4xl md:text-5xl font-heading font-bold mb-8">
-                        <span className="text-valorant-red">/</span> ABOUT THE AGENT
+                        <span className="text-valorant-red">/</span> ABOUT ME
                     </h2>
 
                     <div className="space-y-6">

@@ -1,11 +1,24 @@
-import React, { useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
     const location = useLocation();
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const isScrolled = window.scrollY > 20;
+            if (isScrolled !== scrolled) {
+                setScrolled(isScrolled);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [scrolled]);
 
     const navItems = [
         { name: 'HOME', path: '/' },
@@ -24,7 +37,6 @@ const Navbar = () => {
         if (path.startsWith('#')) {
             if (location.pathname !== '/') {
                 navigate('/');
-                // Small timeout to allow navigation to complete before scrolling
                 setTimeout(() => {
                     const element = document.querySelector(path);
                     if (element) element.scrollIntoView({ behavior: 'smooth' });
@@ -39,17 +51,15 @@ const Navbar = () => {
     };
 
     return (
-        <nav className="fixed w-full z-50 bg-valorant-dark/90 backdrop-blur-md border-b border-white/10">
+        <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-glass-dark/90 backdrop-blur-md border-b border-white/10 shadow-lg' : 'bg-transparent'}`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-20">
                     <div
-                        className="flex-shrink-0 flex items-center gap-2 cursor-pointer"
+                        className="flex-shrink-0 flex items-center gap-2 cursor-pointer group"
                         onClick={() => navigate('/')}
                     >
-                        <div className="w-8 h-8 bg-valorant-red transform -skew-x-12 flex items-center justify-center">
-                            <span className="text-white font-bold font-heading transform skew-x-12">N</span>
-                        </div>
-                        <span className="text-2xl font-heading tracking-wider text-white">NATHAN MENDIS</span>
+
+                        <span className="text-xl font-heading font-bold tracking-tight text-white group-hover:text-primary transition-colors">NATHAN MENDIS</span>
                     </div>
 
                     <div className="hidden md:block">
@@ -59,10 +69,10 @@ const Navbar = () => {
                                     key={item.name}
                                     href={item.path}
                                     onClick={(e) => handleNavClick(e, item.path)}
-                                    className="relative group px-3 py-2 text-sm font-medium text-valorant-light hover:text-white transition-colors duration-200 font-heading tracking-widest cursor-pointer"
+                                    className="relative group px-3 py-2 text-sm font-medium text-gray-300 hover:text-white transition-colors duration-200 font-body tracking-wide cursor-pointer"
                                 >
                                     <span className="relative z-10">{item.name}</span>
-                                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-valorant-red transition-all duration-300 group-hover:w-full"></span>
+                                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-secondary transition-all duration-300 group-hover:w-full"></span>
                                 </a>
                             ))}
                         </div>
@@ -71,7 +81,7 @@ const Navbar = () => {
                     <div className="md:hidden">
                         <button
                             onClick={() => setIsOpen(!isOpen)}
-                            className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none"
+                            className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-white/10 focus:outline-none transition-colors"
                         >
                             {isOpen ? <X size={24} /> : <Menu size={24} />}
                         </button>
@@ -81,14 +91,14 @@ const Navbar = () => {
 
             {/* Mobile menu */}
             {isOpen && (
-                <div className="md:hidden bg-valorant-dark border-b border-valorant-red">
+                <div className="md:hidden bg-glass-dark border-b border-white/10 glass-panel">
                     <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                         {navItems.map((item) => (
                             <a
                                 key={item.name}
                                 href={item.path}
                                 onClick={(e) => handleNavClick(e, item.path)}
-                                className="block px-3 py-2 text-base font-medium text-valorant-light hover:text-white hover:bg-white/5 font-heading tracking-wider cursor-pointer"
+                                className="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-white/5 rounded-md transition-colors cursor-pointer"
                             >
                                 {item.name}
                             </a>

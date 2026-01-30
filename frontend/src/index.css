@@ -8,7 +8,7 @@
   }
 
   body {
-    @apply bg-valorant-dark text-valorant-light font-body overflow-x-hidden;
+    @apply bg-glass-dark text-gray-200 font-body overflow-x-hidden;
   }
 
   h1,
@@ -17,19 +17,34 @@
   h4,
   h5,
   h6 {
-    @apply font-heading uppercase;
+    @apply font-heading font-bold text-white;
   }
 }
 
-/* Custom scrollbar for Webkit */
+@layer utilities {
+  .glass-panel {
+    @apply bg-glass-card backdrop-blur-md border border-glass-stroke shadow-lg;
+  }
+
+  .glass-button {
+    @apply bg-white/5 hover:bg-white/10 border border-white/10 backdrop-blur-sm transition-all duration-300;
+  }
+
+  .text-glow {
+    text-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
+  }
+}
+
+/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-valorant-dark;
+  @apply bg-glass-dark;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-valorant-red;
+  background: linear-gradient(to bottom, #7e22ce, #3b82f6);
+  border-radius: 4px;
 }

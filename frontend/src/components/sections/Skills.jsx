@@ -18,9 +18,9 @@ const Skills = () => {
 
             <div className="mb-12">
                 <h2 className="text-4xl md:text-5xl font-heading font-bold text-center">
-                    <span className="text-valorant-red">/</span> AGENT LOADOUT
+                    <span className="text-valorant-red">/</span> TECHNICAL SKILLS
                 </h2>
-                <p className="text-center text-gray-400 mt-2 font-mono uppercase tracking-widest">Technological Arsenal</p>
+                <p className="text-center text-gray-400 mt-2 font-mono uppercase tracking-widest">My Analytics & Development Stack</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

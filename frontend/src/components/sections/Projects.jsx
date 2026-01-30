@@ -4,35 +4,41 @@ import { Github, ExternalLink, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const projects = [
     {
-        title: "Harvey — AI-Powered HR Agent",
-        tags: ["Agentic AI", "RAG", "LangGraph", "LLMs"],
+        title: "Harvey — AI-Powered HR Assistant",
+        tags: ["Advanced AI", "RAG", "LangGraph", "LLMs"],
         description: "Built a graph-based agentic AI system enabling multi-step reasoning and tool orchestration. Implemented RAG using Sentence Transformers and PostgreSQL (pgvector). Added state management and anti-hallucination safeguards.",
-        github: "https://github.com/yourusername/harvey-hr-agent",
-        demo: "https://harvey-demo-link.com",
-        image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&q=80&w=600&h=400"
+        github: "https://github.com/nathanmendis/project-harvey-test",
+        image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=600&h=400" // AI Network / Abstract Brain
     },
     {
         title: "VibeeChat — Secure Messaging",
         tags: ["Django", "DRF", "JWT", "Cryptography"],
         description: "Developed a secure encrypted messaging backend. Implemented JWT-based stateless authentication and atomic operations for chats and friend requests.",
-        github: "https://github.com/yourusername/vibeechat",
-        demo: "https://vibeechat-live-link.com",
-        image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&q=80&w=600&h=400"
+        github: "https://github.com/nathanmendis/vibee-chatt-backend",
+        demo: "https://vibeechat.netlify.app/",
+        image: "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&q=80&w=600&h=400" // Cyber Security / Lock
     },
     {
         title: "WhatsApp Chat Analyzer",
         tags: ["Python", "Streamlit", "ML", "NLP"],
         description: "Interactive analytics dashboard for WhatsApp logs. Features interest modeling to identify key topics, time-series visualization, and comprehensive engagement statistics.",
         github: "https://github.com/nathanmendis/whatsappchat-analysis",
-        image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=600&h=400"
+        demo: "https://wa-analysis-randomforest.streamlit.app/",
+        image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=600&h=400" // Data Visualization (Keeping as it's good)
     },
     {
         title: "Fake News Detection",
         tags: ["Python", "NLP", "ML"],
         description: "Implemented TF-IDF-based NLP pipelines and trained models including Logistic Regression and Random Forest. Achieved 95% accuracy.",
-        github: "https://github.com/yourusername/fake-news-detection",
-        demo: "https://fake-news-detector.streamlit.app",
-        image: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?auto=format&fit=crop&q=80&w=600&h=400"
+        github: "https://github.com/nathanmendis/fake-news-detection",
+        image: "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?auto=format&fit=crop&q=80&w=600&h=400" // Digital Map / Network
+    },
+    {
+        title: "QR Code Encryption",
+        tags: ["Flask", "Python", "Cryptography"],
+        description: "Created a Flask-based web application to securely encrypt URLs and generate QR codes from encrypted data. Implemented scanning and decryption logic.",
+        github: "https://github.com/nathanmendis/Secure-QR-Code-Generator-Web-Application-Using-Flask",
+        image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&q=80&w=600&h=400" // Matrix / Code
     }
 ];
 
@@ -53,7 +59,7 @@ const Projects = () => {
                 <div className="flex items-center justify-between mb-12">
                     <h2 className="text-4xl md:text-5xl font-heading font-bold flex items-center gap-4">
                         <span className="w-4 h-12 bg-valorant-red"></span>
-                        FEATURED ASSIGNMENTS
+                        FEATURED PROJECTS
                     </h2>
 
                     <div className="flex gap-2">
@@ -87,7 +93,7 @@ const Projects = () => {
                         >
                             <div className="relative h-56 overflow-hidden bg-gray-800">
                                 <div className="absolute inset-0 bg-valorant-red/10 group-hover:bg-transparent transition-colors z-10"></div>
-                                <img src={project.image} alt={project.title} className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 grayscale group-hover:grayscale-0" />
+                                <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
 
                                 {/* Overlay Tags */}
                                 <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80 to-transparent z-20 flex gap-2 overflow-x-auto no-scrollbar">
@@ -98,7 +104,7 @@ const Projects = () => {
                             </div>
 
                             <div className="p-6 flex flex-col flex-grow">
-                                <h3 className="text-2xl font-heading text-white mb-2 group-hover:text-valorant-red transition-colors truncate">{project.title}</h3>
+                                <h3 className="text-2xl font-heading text-white mb-2 transition-colors truncate">{project.title}</h3>
                                 <p className="text-gray-400 text-sm font-body mb-6 flex-grow line-clamp-3">{project.description}</p>
 
                                 <div className="flex items-center gap-4 mt-auto">
