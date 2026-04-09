@@ -1,46 +1,8 @@
 import React, { useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Github, ExternalLink, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Github, ExternalLink, ChevronLeft, ChevronRight, AlertCircle } from 'lucide-react';
 
-const projects = [
-    {
-        title: "Harvey — AI-Powered HR Assistant",
-        tags: ["Advanced AI", "RAG", "LangGraph", "LLMs"],
-        description: "Built a graph-based agentic AI system enabling multi-step reasoning and tool orchestration. Implemented RAG using Sentence Transformers and PostgreSQL (pgvector). Added state management and anti-hallucination safeguards.",
-        github: "https://github.com/nathanmendis/project-harvey-test",
-        image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=600&h=400" // AI Network / Abstract Brain
-    },
-    {
-        title: "VibeeChat — Secure Messaging",
-        tags: ["Django", "DRF", "JWT", "Cryptography"],
-        description: "Developed a secure encrypted messaging backend. Implemented JWT-based stateless authentication and atomic operations for chats and friend requests.",
-        github: "https://github.com/nathanmendis/vibee-chatt-backend",
-        demo: "https://vibeechat.netlify.app/",
-        image: "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&q=80&w=600&h=400" // Cyber Security / Lock
-    },
-    {
-        title: "WhatsApp Chat Analyzer",
-        tags: ["Python", "Streamlit", "ML", "NLP"],
-        description: "Interactive analytics dashboard for WhatsApp logs. Features interest modeling to identify key topics, time-series visualization, and comprehensive engagement statistics.",
-        github: "https://github.com/nathanmendis/whatsappchat-analysis",
-        demo: "https://wa-analysis-randomforest.streamlit.app/",
-        image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=600&h=400" // Data Visualization (Keeping as it's good)
-    },
-    {
-        title: "Fake News Detection",
-        tags: ["Python", "NLP", "ML"],
-        description: "Implemented TF-IDF-based NLP pipelines and trained models including Logistic Regression and Random Forest. Achieved 95% accuracy.",
-        github: "https://github.com/nathanmendis/fake-news-detection",
-        image: "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?auto=format&fit=crop&q=80&w=600&h=400" // Digital Map / Network
-    },
-    {
-        title: "QR Code Encryption",
-        tags: ["Flask", "Python", "Cryptography"],
-        description: "Created a Flask-based web application to securely encrypt URLs and generate QR codes from encrypted data. Implemented scanning and decryption logic.",
-        github: "https://github.com/nathanmendis/Secure-QR-Code-Generator-Web-Application-Using-Flask",
-        image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&q=80&w=600&h=400" // Matrix / Code
-    }
-];
+import { projectsData as projects } from '../../data/projectsData';
 
 const Projects = () => {
     const scrollRef = useRef(null);
@@ -105,7 +67,17 @@ const Projects = () => {
 
                             <div className="p-6 flex flex-col flex-grow">
                                 <h3 className="text-2xl font-heading text-white mb-2 transition-colors truncate">{project.title}</h3>
-                                <p className="text-gray-400 text-sm font-body mb-6 flex-grow line-clamp-3">{project.description}</p>
+                                <div className="flex-grow">
+                                    <p className="text-gray-400 text-sm font-body mb-4 line-clamp-3 leading-relaxed">{project.description}</p>
+                                    {project.disclaimer && (
+                                        <div className="bg-valorant-red/5 border-l-2 border-valorant-red/40 px-3 py-2 rounded-r flex gap-2 items-start mb-6">
+                                            <AlertCircle size={14} className="text-valorant-red mt-0.5 shrink-0" />
+                                            <p className="text-valorant-red/90 text-[10px] font-bold uppercase tracking-wider leading-tight italic">
+                                                {project.disclaimer}
+                                            </p>
+                                        </div>
+                                    )}
+                                </div>
 
                                 <div className="flex items-center gap-4 mt-auto">
                                     <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-white hover:text-valorant-red font-medium transition-colors">

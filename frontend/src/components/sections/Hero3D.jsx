@@ -171,7 +171,7 @@ const Hero3D = () => {
             <Canvas camera={{ position: [0, 0, 4.5], fov: 60 }}>
                 <ambientLight intensity={0.5} />
                 <MorphingParticles />
-                <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={0.5} enablePan={false} />
+                <OrbitControls enableZoom={true} autoRotate autoRotateSpeed={0.5} enablePan={false} />
             </Canvas>
         </div>
     );
