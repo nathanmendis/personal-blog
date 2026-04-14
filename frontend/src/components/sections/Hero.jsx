@@ -2,6 +2,7 @@ import React, { useRef, Suspense } from 'react';
 import Hero3D from './Hero3D';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { Download, ChevronRight, Github, Linkedin } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Hero = () => {
     const ref = useRef(null);
@@ -69,13 +70,13 @@ const Hero = () => {
                             </span>
                         </a>
 
-                        <a
-                            href="#projects"
+                        <Link
+                            to="/projects"
                             className="group inline-flex items-center gap-3 px-8 py-3 glass-button rounded-full text-white font-medium hover:border-white/30 transition-all"
                         >
                             <span className="relative z-10">View Projects</span>
                             <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
-                        </a>
+                        </Link>
 
                         <div className="flex gap-4">
                             <a

@@ -42,7 +42,7 @@ const Projects = () => {
 
                 <div
                     ref={scrollRef}
-                    className="flex gap-8 overflow-x-auto pb-8 snap-x scrollbar-hide"
+                    className="flex gap-8 overflow-x-auto pb-8 snap-x scrollbar-hide relative"
                     style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
                 >
                     {projects.map((project, index) => (

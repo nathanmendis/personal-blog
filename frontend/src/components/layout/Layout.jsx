@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import ArchiveNotification from '../ui/ArchiveNotification';
 
 const Layout = ({ children }) => {
     const containerRef = useRef(null);
@@ -26,7 +27,6 @@ const Layout = ({ children }) => {
         >
             {/* Background Graphic Elements - Enhanced Layer */}
             <div className="fixed inset-0 pointer-events-none z-0">
-                {/* 1. Base Grid Layer */}
                 {/* 1. Base Grid Layer */}
                 <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
 
@@ -62,6 +62,7 @@ const Layout = ({ children }) => {
             </main>
 
             <Footer />
+            <ArchiveNotification />
         </div>
     );
 };

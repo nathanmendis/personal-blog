@@ -6,7 +6,7 @@ import { projectsData, socialsData } from '../data/projectsData';
 
 const ProjectsPage = () => {
     return (
-        <div className="min-h-screen bg-valorant-dark pt-24 pb-20 px-4 md:px-8">
+        <div className="min-h-screen bg-valorant-dark pt-24 pb-20 px-4 md:px-8 relative">
             <div className="max-w-7xl mx-auto">
                 {/* Header */}
                 <motion.div 
@@ -51,12 +51,89 @@ const ProjectsPage = () => {
                     </div>
                 </motion.div>
 
-                {/* Table Container */}
+                {/* Projects List - Mobile View (Hidden on MD+) */}
+                <div className="md:hidden space-y-4">
+                    {projectsData.map((project, index) => (
+                        <motion.div 
+                            key={index}
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: index * 0.05 }}
+                            className="bg-black/40 border border-white/10 p-5 rounded relative overflow-hidden group"
+                        >
+                            <div className="absolute top-0 right-0 w-16 h-16 bg-valorant-red/5 rotate-45 translate-x-8 -translate-y-8"></div>
+                            
+                            <div className="mb-4">
+                                <h3 className="text-xl font-heading font-bold text-white group-hover:text-valorant-red transition-colors">
+                                    {project.title.split('—')[0]}
+                                </h3>
+                                <p className="text-[10px] text-gray-500 font-body uppercase tracking-widest">
+                                    {project.title.split('—')[1] || ''}
+                                </p>
+                            </div>
+
+                            <div className="space-y-4 mb-6">
+                                <div>
+                                    <h4 className="text-[9px] uppercase font-bold text-valorant-red mb-1 tracking-tighter italic">Impact</h4>
+                                    <p className="text-sm text-valorant-red/90 font-medium leading-relaxed italic border-l border-valorant-red/30 pl-3">
+                                        {project.impact}
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <h4 className="text-[9px] uppercase font-bold text-gray-500 mb-2 tracking-tighter">Stack</h4>
+                                    <div className="flex flex-wrap gap-1.5">
+                                        {project.tags.map(tag => (
+                                            <span key={tag} className="px-2 py-0.5 bg-white/5 border border-white/10 text-[9px] uppercase font-bold text-gray-400">
+                                                {tag}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h4 className="text-[9px] uppercase font-bold text-gray-500 mb-1 tracking-tighter">Details</h4>
+                                    <p className="text-xs text-gray-400 font-body leading-relaxed">
+                                        {project.description}
+                                    </p>
+                                    {project.disclaimer && (
+                                        <div className="mt-2 bg-valorant-red/5 border-l border-valorant-red/40 px-2 py-1 flex gap-2 items-center">
+                                            <span className="text-[8px] font-bold text-valorant-red uppercase italic">{project.disclaimer}</span>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-3 pt-4 border-t border-white/5">
+                                <a 
+                                    href={project.github} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                    className="flex items-center justify-center gap-2 py-2 bg-white/5 border border-white/10 text-[10px] font-bold uppercase tracking-widest text-white hover:bg-valorant-red hover:border-valorant-red transition-all"
+                                >
+                                    <Github size={14} /> GitHub
+                                </a>
+                                {project.demo && (
+                                    <a 
+                                        href={project.demo} 
+                                        target="_blank" 
+                                        rel="noopener noreferrer"
+                                        className="flex items-center justify-center gap-2 py-2 bg-valorant-red text-[10px] font-bold uppercase tracking-widest text-white hover:bg-[#ff4655] transition-all"
+                                    >
+                                        <ExternalLink size={14} /> Live
+                                    </a>
+                                )}
+                            </div>
+                        </motion.div>
+                    ))}
+                </div>
+
+                {/* Table Container - Desktop View (Hidden on Mobile) */}
                 <motion.div 
                     initial={{ opacity: 0, scale: 0.98 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.2 }}
-                    className="w-full overflow-x-auto rounded border border-white/10 bg-black/40 backdrop-blur-sm scrollbar-hide"
+                    className="hidden md:block w-full overflow-x-auto rounded border border-white/10 bg-black/40 backdrop-blur-sm scrollbar-hide"
                 >
                     <table className="w-full text-left border-collapse min-w-[1000px]">
                         <thead>

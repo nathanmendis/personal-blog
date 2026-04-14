@@ -70,7 +70,25 @@ export const projectsData = [
         impact: "Enabled secure information exchange through innovative encryption and QR generation techniques.",
         github: "https://github.com/nathanmendis/Secure-QR-Code-Generator-Web-Application-Using-Flask",
         image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&q=80&w=600&h=400"
+    },
+    {
+        title: "Binance Futures Trading Bot",
+        tags: ["Python", "Binance API", "Typer", "Pydantic"],
+        description: "Developed a professional-grade CLI trading suite for Binance Futures. Supports automated strategies like TWAP and Grid trading, with built-in Stop-Loss and Take-Profit protections.",
+        impact: "Automated high-frequency execution with sub-second latency, featuring a premium interactive UI and strict real-time data validation.",
+        github: "https://github.com/nathanmendis/BinanceBot",
+        image: "https://images.unsplash.com/photo-1611974717482-4828c36a5ad7?auto=format&fit=crop&q=80&w=600&h=400"
+    },
+    {
+        title: "Book-A-Vibe: The Autonomous AI Librarian",
+        tags: ["React", "Django REST Framework", "PostgreSQL", "PGVector", "Celery", "Groq AI", "Selenium"],
+        description: "Developed a high-performance discovery and AI synthesis platform that transforms a personal library into a self-evolving knowledge base. It utilizes recursive web discovery to 'scout' for recommendations and RAG-driven synthesis for grounded, contextual conversations with your collection.",
+        impact: "Engineered a distributed dual-worker architecture for seamless background processing, integrated PGVector for sub-second semantic search, and delivered a premium 'Next-Gen' glassmorphic UI with real-time telemetry.",
+        github: "https://github.com/nathanmendis/Book-A-Vibe",
+        image: "https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&q=80&w=600&h=400"
     }
+
+
 ];
 
 export const socialsData = [
