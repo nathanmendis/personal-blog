@@ -8,7 +8,7 @@
   }
 
   body {
-    @apply bg-glass-dark text-gray-200 font-body overflow-x-hidden;
+    @apply bg-glass-dark text-slate-700 font-body overflow-x-hidden;
   }
 
   h1,
@@ -17,21 +17,21 @@
   h4,
   h5,
   h6 {
-    @apply font-heading font-bold text-white;
+    @apply font-heading font-bold text-slate-900;
   }
 }
 
 @layer utilities {
   .glass-panel {
-    @apply bg-glass-card backdrop-blur-md border border-glass-stroke shadow-lg;
+    @apply bg-glass-surface border border-glass-stroke shadow-sm rounded-xl;
   }
 
   .glass-button {
-    @apply bg-white/5 hover:bg-white/10 border border-white/10 backdrop-blur-sm transition-all duration-300;
+    @apply bg-glass-card hover:bg-glass-card-light text-slate-800 border border-glass-stroke transition-all duration-200 rounded-lg;
   }
 
   .text-glow {
-    text-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
+    text-shadow: none;
   }
 }
 
@@ -41,10 +41,14 @@
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-glass-dark;
+  background: #b4bac5;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(to bottom, #7e22ce, #3b82f6);
+  background: #8d96a5;
   border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #7a8394;
 }

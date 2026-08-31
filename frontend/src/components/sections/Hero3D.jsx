@@ -154,11 +154,12 @@ const MorphingParticles = () => {
             <Points ref={ref} positions={positions} stride={3} frustumCulled={false}>
                 <PointMaterial
                     transparent
-                    color="#a855f7"
-                    size={0.03}
+                    color="#03AED2"
+                    size={0.04}
                     sizeAttenuation={true}
                     depthWrite={false}
                     blending={THREE.AdditiveBlending}
+                    opacity={1}
                 />
             </Points>
         </group>
@@ -168,7 +169,7 @@ const MorphingParticles = () => {
 const Hero3D = () => {
     return (
         <div className="w-full h-full cursor-pointer" title="Click to change | Drag to rotate">
-            <Canvas camera={{ position: [0, 0, 4.5], fov: 60 }}>
+            <Canvas camera={{ position: [0, 0, 4.5], fov: 60 }} gl={{ alpha: true }} style={{ background: 'transparent' }}>
                 <ambientLight intensity={0.5} />
                 <MorphingParticles />
                 <OrbitControls enableZoom={true} autoRotate autoRotateSpeed={0.5} enablePan={false} />

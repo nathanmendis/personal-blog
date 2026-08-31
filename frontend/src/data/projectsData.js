@@ -86,6 +86,22 @@ export const projectsData = [
         impact: "Engineered a distributed dual-worker architecture for seamless background processing, integrated PGVector for sub-second semantic search, and delivered a premium 'Next-Gen' glassmorphic UI with real-time telemetry.",
         github: "https://github.com/nathanmendis/Book-A-Vibe",
         image: "https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&q=80&w=600&h=400"
+    },
+    {
+        title: "Print Tracker — Zero-Config Print Workflow",
+        tags: ["Electron", "Windows App", "Workflow Automation", "Local Queue"],
+        description: "A secure, standalone Windows application designed specifically for local copy and print shops. It acts as an automated bridge between client document submissions and your physical printing queue, eliminating manual tracking of pending files, previewing documents instantly, and auto-archiving completed jobs.",
+        impact: "Keeps customer documents private via a zero-config local engine while providing a web-based dashboard.",
+        github: "https://github.com/nathanmendis/PrintTracker-Public",
+        image: "https://images.unsplash.com/photo-1612815154858-60aa4c59edd6?auto=format&fit=crop&q=80&w=600&h=400"
+    },
+    {
+        title: "FluidAi — Autonomous Doc Gen Agent",
+        tags: ["LangGraph", "FastAPI", "Redis", "Stateful Workflow", "NLP"],
+        description: "Autonomous document generation platform powered by a stateful LangGraph agent workflow, FastAPI, and Redis. Features an Autonomous Planner node, human-in-the-loop approvals, web-scraping search tool, and in-place critique passes to output natively styled MS Word tables and bullet formatting.",
+        impact: "Enables natural language instructions to drive real-time research, structured document creation, self-critique, and professional Word generation.",
+        github: "https://github.com/nathanmendis/FluidAi-tasl",
+        image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=600&h=400"
     }
 
 

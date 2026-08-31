@@ -52,7 +52,7 @@ const Navbar = () => {
     };
 
     return (
-        <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-glass-dark/90 backdrop-blur-md border-b border-white/10 shadow-lg' : 'bg-transparent'}`}>
+        <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-glass-backdrop border-b border-glass-stroke shadow-sm' : 'bg-transparent'}`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-20">
                     <div
@@ -60,7 +60,7 @@ const Navbar = () => {
                         onClick={() => navigate('/')}
                     >
 
-                        <span className="text-xl font-heading font-bold tracking-tight text-white group-hover:text-primary transition-colors">NATHAN MENDIS</span>
+                        <span className="text-xl font-heading font-bold tracking-tight text-slate-900 group-hover:text-primary transition-colors">NATHAN MENDIS</span>
                     </div>
 
                     <div className="hidden md:block">
@@ -70,7 +70,7 @@ const Navbar = () => {
                                     key={item.name}
                                     href={item.path}
                                     onClick={(e) => handleNavClick(e, item.path)}
-                                    className="relative group px-3 py-2 text-sm font-medium text-gray-300 hover:text-white transition-colors duration-200 font-body tracking-wide cursor-pointer"
+                                    className="relative group px-3 py-2 text-sm font-medium text-slate-600 hover:text-slate-950 transition-colors duration-200 font-body tracking-wide cursor-pointer"
                                 >
                                     <span className="relative z-10">{item.name}</span>
                                     <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-secondary transition-all duration-300 group-hover:w-full"></span>
@@ -82,7 +82,7 @@ const Navbar = () => {
                     <div className="md:hidden">
                         <button
                             onClick={() => setIsOpen(!isOpen)}
-                            className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-white/10 focus:outline-none transition-colors"
+                            className="inline-flex items-center justify-center p-2 rounded-md text-slate-500 hover:text-slate-800 hover:bg-slate-100 focus:outline-none transition-colors"
                         >
                             {isOpen ? <X size={24} /> : <Menu size={24} />}
                         </button>
@@ -92,14 +92,14 @@ const Navbar = () => {
 
             {/* Mobile menu */}
             {isOpen && (
-                <div className="md:hidden bg-glass-dark border-b border-white/10 glass-panel">
+                <div className="md:hidden bg-white border-b border-slate-200 shadow-md">
                     <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                         {navItems.map((item) => (
                             <a
                                 key={item.name}
                                 href={item.path}
                                 onClick={(e) => handleNavClick(e, item.path)}
-                                className="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-white/5 rounded-md transition-colors cursor-pointer"
+                                className="block px-3 py-2 text-base font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-md transition-colors cursor-pointer"
                             >
                                 {item.name}
                             </a>
