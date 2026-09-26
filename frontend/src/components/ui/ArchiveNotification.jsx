@@ -8,10 +8,10 @@ const ArchiveNotification = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Show after a short delay on every refresh
+        // Show after a delay on every refresh, queued after Freelance offer
         const timer = setTimeout(() => {
             setIsVisible(true);
-        }, 2500);
+        }, 6000);
         return () => clearTimeout(timer);
     }, []);
 

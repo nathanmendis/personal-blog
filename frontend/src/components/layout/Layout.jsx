@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import ArchiveNotification from '../ui/ArchiveNotification';
+import FreelanceNotification from '../ui/FreelanceNotification';
 
 const Layout = ({ children }) => {
     const containerRef = useRef(null);
@@ -63,6 +64,7 @@ const Layout = ({ children }) => {
             </main>
 
             <Footer />
+            <FreelanceNotification />
             <ArchiveNotification />
         </div>
     );

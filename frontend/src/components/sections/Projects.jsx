@@ -55,7 +55,7 @@ const Projects = () => {
                         >
                             <div className="relative h-56 overflow-hidden bg-slate-100">
                                 <div className="absolute inset-0 bg-primary/5 group-hover:bg-transparent transition-colors z-10"></div>
-                                <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
+                                <img src={project.image} alt={project.title} className="w-full h-full object-cover" onError={(e) => { e.target.onerror = null; e.target.src = '/fallback-image.png'; }} />
 
                                 {/* Overlay Tags */}
                                 <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80 to-transparent z-20 flex gap-2 overflow-x-auto no-scrollbar">

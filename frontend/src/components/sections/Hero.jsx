@@ -1,6 +1,6 @@
-import React, { useRef, Suspense } from 'react';
+import React, { useRef, Suspense, useState, useEffect } from 'react';
 import Hero3D from './Hero3D';
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'framer-motion';
 import { Download, ChevronRight, Github, Linkedin } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -8,6 +8,19 @@ const Hero = () => {
     const ref = useRef(null);
     const { scrollYProgress } = useScroll({ target: ref });
     const y = useSpring(useTransform(scrollYProgress, [0, 1], [0, 200]), { stiffness: 100, damping: 30 });
+    
+    const [statusIndex, setStatusIndex] = useState(0);
+    const availabilityStatuses = [
+        "Available for Freelance Projects",
+        "Open to Full-time SDE Roles"
+    ];
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setStatusIndex((prev) => (prev + 1) % availabilityStatuses.length);
+        }, 4000);
+        return () => clearInterval(interval);
+    }, []);
 
     return (
         <section ref={ref} className="relative min-h-screen flex items-center justify-start overflow-hidden ">
@@ -24,9 +37,26 @@ const Hero = () => {
                         transition={{ duration: 0.8 }}
                         className="flex items-center gap-4"
                     >
-                        <div className="h-[1px] w-12 bg-primary"></div>
-                        <span className="text-primary font-mono tracking-widest text-sm font-medium uppercase">
-                            Available for hire
+                        <div className="h-[1px] w-12 bg-rose-700"></div>
+                        <span className="text-rose-700 font-mono tracking-widest text-sm font-semibold uppercase flex items-center gap-2 relative min-w-[300px]">
+                            <span className="relative flex h-2.5 w-2.5 shrink-0">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-rose-700"></span>
+                            </span>
+                            <div className="relative overflow-hidden h-6 w-full">
+                                <AnimatePresence mode="wait">
+                                    <motion.span
+                                        key={statusIndex}
+                                        initial={{ y: 20, opacity: 0 }}
+                                        animate={{ y: 0, opacity: 1 }}
+                                        exit={{ y: -20, opacity: 0 }}
+                                        transition={{ duration: 0.5 }}
+                                        className="absolute left-0 top-0 whitespace-nowrap"
+                                    >
+                                        {availabilityStatuses[statusIndex]}
+                                    </motion.span>
+                                </AnimatePresence>
+                            </div>
                         </span>
                     </motion.div>
 
@@ -80,7 +110,7 @@ const Hero = () => {
 
                         <Link
                             to="/freelance"
-                            className="group inline-flex items-center gap-3 px-8 py-3 bg-slate-100 hover:bg-slate-200 border border-slate-200 shadow-sm rounded-full text-slate-800 font-medium transition-all"
+                            className="group inline-flex items-center gap-3 px-8 py-3 bg-red-600 hover:bg-red-700 shadow-md shadow-red-500/20 rounded-full text-white font-semibold transition-all transform hover:-translate-y-0.5"
                         >
                             <span className="relative z-10">Freelance Services</span>
                             <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />

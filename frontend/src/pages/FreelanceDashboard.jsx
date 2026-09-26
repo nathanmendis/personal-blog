@@ -2,11 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Activity, Users, Star, Clock, ChevronLeft, ChevronRight, Heart } from 'lucide-react';
 import Freelance from '../components/sections/Freelance';
+import FreelancePopup from '../components/sections/FreelancePopup';
+import MobileContactModal from '../components/sections/MobileContactModal';
 import { freelanceProjects } from '../data/freelanceProjects';
 import { freelanceReviews } from '../data/freelanceReviews';
 
 const FreelanceDashboard = () => {
     const [activeIndex, setActiveIndex] = useState(0);
+    const [activeReviewIndex, setActiveReviewIndex] = useState(0);
+    const [isMobileFormOpen, setIsMobileFormOpen] = useState(false);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -23,6 +27,14 @@ const FreelanceDashboard = () => {
         setActiveIndex((current) => (current - 1 + freelanceProjects.length) % freelanceProjects.length);
     };
 
+    const nextReviewSlide = () => {
+        setActiveReviewIndex((current) => (current + 1) % freelanceReviews.length);
+    };
+
+    const prevReviewSlide = () => {
+        setActiveReviewIndex((current) => (current - 1 + freelanceReviews.length) % freelanceReviews.length);
+    };
+
     const stats = [
         { label: "Active Clients", value: "3+", icon: <Users size={20} className="text-black mb-4" strokeWidth={1.5} /> },
         { label: "Projects Delivered", value: "12", icon: <Star size={20} className="text-black mb-4" strokeWidth={1.5} /> },
@@ -33,31 +45,44 @@ const FreelanceDashboard = () => {
 
 
     return (
-        <div
-            className="py-24 space-y-24 min-h-screen bg-white"
-            style={{ width: '100vw', marginLeft: 'calc(-50vw + 50%)' }}
-        >
+        <div className="py-12 md:py-24 space-y-16 md:space-y-24 min-h-screen bg-white w-full md:w-[100vw] md:ml-[calc(-50vw+50%)] overflow-hidden">
             {/* Dashboard Header */}
-            <section className="max-w-7xl mx-auto px-4 relative z-10 pt-8 pb-32">
+            <section className="max-w-7xl mx-auto px-4 relative z-10 pt-8 pb-32" style={{ perspective: "1000px" }}>
                 <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-12 mb-24">
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="max-w-3xl"
+                        initial={{ opacity: 0, rotateX: 20, y: 50, scale: 0.95 }}
+                        animate={{ opacity: 1, rotateX: 0, y: 0, scale: 1 }}
+                        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                        className="max-w-3xl transform-style-3d"
                     >
-                        <div className="flex items-center gap-4 mb-8">
+                        <motion.div 
+                            initial={{ opacity: 0, x: -30 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.4, duration: 0.8, ease: "easeOut" }}
+                            className="flex items-center gap-4 mb-8"
+                        >
                             <span className="w-12 h-[1px] bg-black"></span>
                             <span className="text-xs font-semibold tracking-[0.3em] uppercase text-slate-500">
                                 Independent Studio
                             </span>
-                        </div>
-                        <h1 className="text-5xl md:text-7xl font-light text-black leading-[1.1] tracking-tight mb-8">
+                        </motion.div>
+                        <motion.h1 
+                            initial={{ opacity: 0, rotateY: -10, z: -100 }}
+                            animate={{ opacity: 1, rotateY: 0, z: 0 }}
+                            transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+                            className="text-5xl md:text-7xl font-light text-black leading-[1.1] tracking-tight mb-8"
+                        >
                             Elevating brands through <br />
-                            <span className="font-semibold italic">digital craftsmanship.</span>
-                        </h1>
-                        <p className="text-xl text-slate-500 font-light max-w-xl leading-relaxed">
+                            <span className="font-semibold italic text-slate-800 drop-shadow-sm">digital craftsmanship.</span>
+                        </motion.h1>
+                        <motion.p 
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.6, duration: 0.8, ease: "easeOut" }}
+                            className="text-lg md:text-xl text-slate-500 font-light max-w-xl leading-relaxed"
+                        >
                             Delivering bespoke web experiences for visionary brands. A curated selection of professional engagements and measurable outcomes.
-                        </p>
+                        </motion.p>
                     </motion.div>
 
                     <motion.div
@@ -98,6 +123,16 @@ const FreelanceDashboard = () => {
                     ))}
                 </div>
 
+                {/* Mobile CTA */}
+                <div className="md:hidden flex justify-center mt-12 mb-8">
+                    <button
+                        onClick={() => setIsMobileFormOpen(true)}
+                        className="bg-transparent text-black border-2 border-black px-6 py-4 rounded-none font-semibold uppercase tracking-widest text-xs shadow-none w-full max-w-xs transition-colors hover:bg-slate-100"
+                    >
+                        Transform Your Web Presence Now
+                    </button>
+                </div>
+
                 {/* Freelance Portfolio */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -106,20 +141,20 @@ const FreelanceDashboard = () => {
                     className="relative max-w-5xl mx-auto"
                 >
                     <h2 className="text-2xl font-light mb-16 text-center text-black tracking-widest uppercase">
-                        Selected Works
+                        Proven Client Successes
                     </h2>
 
                     <div className="relative h-[600px] flex items-center justify-center">
                         {/* Navigation Arrows */}
                         <button
                             onClick={prevSlide}
-                            className="absolute left-0 md:-left-12 z-20 p-3 bg-white border border-slate-200 rounded-full text-slate-800 hover:bg-slate-50 transition-colors shadow-sm"
+                            className="hidden md:flex absolute left-2 md:-left-12 z-20 p-3 bg-white border border-slate-200 rounded-full text-slate-800 hover:bg-slate-50 transition-colors shadow-sm"
                         >
                             <ChevronLeft size={24} />
                         </button>
                         <button
                             onClick={nextSlide}
-                            className="absolute right-0 md:-right-12 z-20 p-3 bg-white border border-slate-200 rounded-full text-slate-800 hover:bg-slate-50 transition-colors shadow-sm"
+                            className="hidden md:flex absolute right-2 md:-right-12 z-20 p-3 bg-white border border-slate-200 rounded-full text-slate-800 hover:bg-slate-50 transition-colors shadow-sm"
                         >
                             <ChevronRight size={24} />
                         </button>
@@ -144,6 +179,16 @@ const FreelanceDashboard = () => {
                                                 opacity: Math.abs(offset) > 1 ? 0 : isCenter ? 1 : 0.6,
                                                 zIndex: isCenter ? 10 : 5,
                                             }}
+                                            drag="x"
+                                            dragConstraints={{ left: 0, right: 0 }}
+                                            dragElastic={1}
+                                            onDragEnd={(e, { offset }) => {
+                                                if (offset.x < -50) {
+                                                    nextSlide();
+                                                } else if (offset.x > 50) {
+                                                    prevSlide();
+                                                }
+                                            }}
                                             transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }}
                                             className={`absolute top-0 w-full bg-white border border-slate-200 rounded-2xl shadow-xl overflow-hidden flex flex-col h-[550px] ${!isCenter ? 'pointer-events-none' : ''}`}
                                         >
@@ -152,6 +197,7 @@ const FreelanceDashboard = () => {
                                                     src={project.image}
                                                     alt={project.title}
                                                     className="w-full h-full object-cover transition-transform duration-700 group-hover/image:scale-105"
+                                                    onError={(e) => { e.target.onerror = null; e.target.src = '/fallback-image.png'; }}
                                                 />
                                                 {project.demo && isCenter && (
                                                     <a
@@ -171,9 +217,12 @@ const FreelanceDashboard = () => {
                                                 <p className="text-sm text-slate-500 font-light leading-relaxed mb-6 flex-grow">
                                                     {project.description}
                                                 </p>
-                                                <div className="border-t border-slate-200 pt-4 mb-4">
-                                                    <p className="text-xs text-slate-800 font-medium uppercase tracking-wider">
-                                                        Outcome: <span className="text-slate-500 font-normal normal-case tracking-normal ml-1 line-clamp-2">{project.impact}</span>
+                                                <div className="-mx-8 px-8 py-5 bg-slate-100/80 shadow-inner mb-4 border-y border-slate-200/50">
+                                                    <p className="text-xs text-slate-800 font-medium uppercase tracking-wider mb-1">
+                                                        Outcome:
+                                                    </p>
+                                                    <p className="text-sm text-slate-600 font-normal normal-case tracking-normal line-clamp-2">
+                                                        {project.impact}
                                                     </p>
                                                 </div>
                                                 {project.demo && (
@@ -204,23 +253,40 @@ const FreelanceDashboard = () => {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="relative w-full mx-auto mt-32"
+                    className="relative w-full mx-auto mt-20"
                 >
                     <h2 className="text-2xl font-light mb-16 text-center text-black tracking-widest uppercase">
                         Client Testimonials
                     </h2>
-                    <div className="relative overflow-hidden w-full py-4">
-                        <motion.div
-                            className="flex gap-8 w-max"
-                            animate={{ x: ["0%", "-50%"] }}
-                            transition={{ repeat: Infinity, ease: "linear", duration: 20 }}
+                    <div className="relative w-full max-w-4xl mx-auto px-4 md:px-12">
+                        {/* Navigation Arrows */}
+                        <button
+                            onClick={prevReviewSlide}
+                            className="absolute -left-2 md:-left-8 top-1/2 -translate-y-1/2 z-20 p-2 md:p-3 bg-white border border-slate-200 rounded-full text-slate-800 hover:bg-slate-50 transition-colors shadow-sm"
                         >
-                            {[...freelanceReviews, ...freelanceReviews].map((review, idx) => (
-                                <div key={idx} className="bg-white border border-slate-200 rounded-2xl p-8 md:p-10 shadow-sm hover:shadow-lg transition-all duration-300 text-left w-[300px] md:w-[700px] shrink-0">
+                            <ChevronLeft size={24} />
+                        </button>
+                        <button
+                            onClick={nextReviewSlide}
+                            className="absolute -right-2 md:-right-8 top-1/2 -translate-y-1/2 z-20 p-2 md:p-3 bg-white border border-slate-200 rounded-full text-slate-800 hover:bg-slate-50 transition-colors shadow-sm"
+                        >
+                            <ChevronRight size={24} />
+                        </button>
+
+                        <div className="overflow-hidden relative w-full rounded-2xl shadow-sm border border-slate-200 bg-white">
+                            <AnimatePresence mode="wait">
+                                <motion.div
+                                    key={activeReviewIndex}
+                                    initial={{ opacity: 0, x: 50 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    exit={{ opacity: 0, x: -50 }}
+                                    transition={{ duration: 0.3 }}
+                                    className="p-8 md:p-12"
+                                >
                                     <div className="flex flex-col md:flex-row gap-8 items-start md:items-center">
                                         <div className="md:w-1/3 shrink-0">
-                                            <p className="font-semibold text-xl text-black tracking-wide">{review.client}</p>
-                                            <p className="text-xs text-slate-500 uppercase tracking-widest mt-2">{review.company}</p>
+                                            <p className="font-semibold text-xl text-black tracking-wide">{freelanceReviews[activeReviewIndex].client}</p>
+                                            <p className="text-xs text-slate-500 uppercase tracking-widest mt-2">{freelanceReviews[activeReviewIndex].company}</p>
                                             <div className="mt-4 flex">
                                                 {[...Array(5)].map((_, i) => (
                                                     <Star key={i} size={16} className="text-black mr-1" fill="currentColor" />
@@ -229,19 +295,37 @@ const FreelanceDashboard = () => {
                                         </div>
                                         <div className="md:w-2/3 md:border-l border-slate-200 md:pl-8">
                                             <p className="text-lg text-slate-600 font-light leading-relaxed italic">
-                                                "{review.review}"
+                                                "{freelanceReviews[activeReviewIndex].review}"
                                             </p>
                                         </div>
                                     </div>
-                                </div>
+                                </motion.div>
+                            </AnimatePresence>
+                        </div>
+                        
+                        {/* Pagination Dots */}
+                        <div className="flex justify-center mt-8 gap-2">
+                            {freelanceReviews.map((_, idx) => (
+                                <button
+                                    key={idx}
+                                    onClick={() => setActiveReviewIndex(idx)}
+                                    className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${activeReviewIndex === idx ? 'bg-black w-8' : 'bg-slate-300 hover:bg-slate-400'}`}
+                                />
                             ))}
-                        </motion.div>
+                        </div>
                     </div>
                 </motion.div>
             </section>
 
             {/* Re-using the Freelance Services and Contact form */}
             <Freelance />
+
+
+            <MobileContactModal 
+                isOpen={isMobileFormOpen} 
+                onClose={() => setIsMobileFormOpen(false)} 
+            />
+            <FreelancePopup />
         </div>
     );
 };

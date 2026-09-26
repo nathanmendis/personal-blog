@@ -80,9 +80,9 @@ const Navbar = () => {
                         </div>
                         <button
                             onClick={(e) => handleNavClick(e, '/freelance')}
-                            className="border border-black text-black px-5 py-2 rounded-full font-semibold text-xs tracking-widest uppercase hover:bg-slate-50 transition-colors shadow-sm transform hover:-translate-y-0.5"
+                            className="bg-red-500/10 text-red-600 border border-red-500/20 px-5 py-2 rounded-lg font-semibold text-xs tracking-widest uppercase hover:bg-red-500/20 transition-all transform hover:-translate-y-0.5 whitespace-nowrap"
                         >
-                            Freelance
+                            Checkout Freelance
                         </button>
                     </div>
 
@@ -114,9 +114,9 @@ const Navbar = () => {
                         <div className="px-3 py-3">
                             <button
                                 onClick={(e) => handleNavClick(e, '/freelance')}
-                                className="w-full text-center border border-black text-black px-5 py-3 rounded-md font-semibold text-sm tracking-widest uppercase hover:bg-slate-50 transition-colors shadow-sm"
+                                className="w-full text-center bg-red-500/10 text-red-600 border border-red-500/20 px-5 py-3 rounded-lg font-semibold text-sm tracking-widest uppercase hover:bg-red-500/20 transition-all whitespace-nowrap"
                             >
-                                Freelance
+                                Checkout Freelance
                             </button>
                         </div>
                     </div>
