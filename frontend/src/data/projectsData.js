@@ -29,15 +29,6 @@ export const projectsData = [
         disclaimer: "Note: Backend may be down after June 2026 (Hosted on free GCP credits)."
     },
     {
-        title: "The Third Space — Digital Sanctuary",
-        tags: ["React", "Google Sheets API", "Vite", "Framer Motion"],
-        description: "A digital sanctuary and community hub for a café environment. Features a dynamic events calendar, seasonal menu explorer, and community gallery, all synchronized in real-time with Google Sheets via OpenSheet API.",
-        impact: "Streamlined café operations and community engagement through real-time backend synchronization.",
-        github: "https://github.com/nathanmendis/tts-project",
-        demo: "https://tts-project-sand.vercel.app/",
-        image: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&q=80&w=600&h=400"
-    },
-    {
         title: "VibeeChat — Secure Messaging",
         tags: ["Django", "DRF", "JWT", "Cryptography"],
         description: "Developed a secure encrypted messaging backend. Implemented JWT-based stateless authentication and atomic operations for chats and friend requests.",
@@ -103,8 +94,6 @@ export const projectsData = [
         github: "https://github.com/nathanmendis/FluidAi-tasl",
         image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=600&h=400"
     }
-
-
 ];
 
 export const socialsData = [

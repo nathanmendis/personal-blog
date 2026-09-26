@@ -78,6 +78,14 @@ const Hero = () => {
                             <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
                         </Link>
 
+                        <Link
+                            to="/freelance"
+                            className="group inline-flex items-center gap-3 px-8 py-3 bg-slate-100 hover:bg-slate-200 border border-slate-200 shadow-sm rounded-full text-slate-800 font-medium transition-all"
+                        >
+                            <span className="relative z-10">Freelance Services</span>
+                            <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                        </Link>
+
                         <div className="flex gap-4">
                             <a
                                 href="https://github.com/nathanmendis"

@@ -27,6 +27,7 @@ const Navbar = () => {
         { name: 'EXPERIENCE', path: '#experience' },
         { name: 'PROJECTS', path: '#projects' },
         { name: 'ARCHIVE', path: '/projects' },
+
         { name: 'BLOG', path: '/blog' },
         { name: 'CONTACT', path: '#contact' },
     ];
@@ -63,8 +64,8 @@ const Navbar = () => {
                         <span className="text-xl font-heading font-bold tracking-tight text-slate-900 group-hover:text-primary transition-colors">NATHAN MENDIS</span>
                     </div>
 
-                    <div className="hidden md:block">
-                        <div className="ml-10 flex items-baseline space-x-8">
+                    <div className="hidden md:flex items-center ml-10 space-x-8">
+                        <div className="flex items-baseline space-x-8">
                             {navItems.map((item) => (
                                 <a
                                     key={item.name}
@@ -77,6 +78,12 @@ const Navbar = () => {
                                 </a>
                             ))}
                         </div>
+                        <button
+                            onClick={(e) => handleNavClick(e, '/freelance')}
+                            className="border border-black text-black px-5 py-2 rounded-full font-semibold text-xs tracking-widest uppercase hover:bg-slate-50 transition-colors shadow-sm transform hover:-translate-y-0.5"
+                        >
+                            Freelance
+                        </button>
                     </div>
 
                     <div className="md:hidden">
@@ -104,6 +111,14 @@ const Navbar = () => {
                                 {item.name}
                             </a>
                         ))}
+                        <div className="px-3 py-3">
+                            <button
+                                onClick={(e) => handleNavClick(e, '/freelance')}
+                                className="w-full text-center border border-black text-black px-5 py-3 rounded-md font-semibold text-sm tracking-widest uppercase hover:bg-slate-50 transition-colors shadow-sm"
+                            >
+                                Freelance
+                            </button>
+                        </div>
                     </div>
                 </div>
             )}
