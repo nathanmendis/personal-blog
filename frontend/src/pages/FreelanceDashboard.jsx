@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { Activity, Users, Star, Clock, ChevronLeft, ChevronRight, Heart } from 'lucide-react';
 import Freelance from '../components/sections/Freelance';
-import FreelancePopup from '../components/sections/FreelancePopup';
 import MobileContactModal from '../components/sections/MobileContactModal';
 import { freelanceProjects } from '../data/freelanceProjects';
 import { freelanceReviews } from '../data/freelanceReviews';
@@ -11,12 +11,20 @@ const FreelanceDashboard = () => {
     const [activeIndex, setActiveIndex] = useState(0);
     const [activeReviewIndex, setActiveReviewIndex] = useState(0);
     const [isMobileFormOpen, setIsMobileFormOpen] = useState(false);
+    const [activeStep, setActiveStep] = useState(0);
 
     useEffect(() => {
         const interval = setInterval(() => {
             setActiveIndex((current) => (current + 1) % freelanceProjects.length);
         }, 5000); // Auto-scroll every 5 seconds
         return () => clearInterval(interval);
+    }, []);
+
+    useEffect(() => {
+        const stepInterval = setInterval(() => {
+            setActiveStep((current) => (current + 1) % 4);
+        }, 1500);
+        return () => clearInterval(stepInterval);
     }, []);
 
     const nextSlide = () => {
@@ -55,7 +63,7 @@ const FreelanceDashboard = () => {
                         transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
                         className="max-w-3xl transform-style-3d"
                     >
-                        <motion.div 
+                        <motion.div
                             initial={{ opacity: 0, x: -30 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: 0.4, duration: 0.8, ease: "easeOut" }}
@@ -66,7 +74,7 @@ const FreelanceDashboard = () => {
                                 Independent Studio
                             </span>
                         </motion.div>
-                        <motion.h1 
+                        <motion.h1
                             initial={{ opacity: 0, rotateY: -10, z: -100 }}
                             animate={{ opacity: 1, rotateY: 0, z: 0 }}
                             transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
@@ -75,7 +83,7 @@ const FreelanceDashboard = () => {
                             Elevating brands through <br />
                             <span className="font-semibold italic text-slate-800 drop-shadow-sm">digital craftsmanship.</span>
                         </motion.h1>
-                        <motion.p 
+                        <motion.p
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.6, duration: 0.8, ease: "easeOut" }}
@@ -91,12 +99,12 @@ const FreelanceDashboard = () => {
                         transition={{ delay: 0.2, duration: 0.5 }}
                         className="hidden md:flex shrink-0"
                     >
-                        <button 
+                        <button
                             onClick={() => document.getElementById('freelance').scrollIntoView({ behavior: 'smooth' })}
                             className="group flex items-center justify-center w-40 h-40 rounded-full border border-black text-black hover:bg-black hover:text-white transition-all duration-500"
                         >
                             <span className="text-xs font-semibold uppercase tracking-widest text-center leading-loose">
-                                Start A<br/>Project
+                                Start A<br />Project
                             </span>
                         </button>
                     </motion.div>
@@ -217,14 +225,7 @@ const FreelanceDashboard = () => {
                                                 <p className="text-sm text-slate-500 font-light leading-relaxed mb-6 flex-grow">
                                                     {project.description}
                                                 </p>
-                                                <div className="-mx-8 px-8 py-5 bg-slate-100/80 shadow-inner mb-4 border-y border-slate-200/50">
-                                                    <p className="text-xs text-slate-800 font-medium uppercase tracking-wider mb-1">
-                                                        Outcome:
-                                                    </p>
-                                                    <p className="text-sm text-slate-600 font-normal normal-case tracking-normal line-clamp-2">
-                                                        {project.impact}
-                                                    </p>
-                                                </div>
+                                                <div className="mb-4"></div>
                                                 {project.demo && (
                                                     <div className="mt-auto">
                                                         <a
@@ -245,6 +246,35 @@ const FreelanceDashboard = () => {
                         </div>
                     </div>
                 </motion.div>
+            </section>
+
+            {/* How It Works */}
+            <section className="py-24 bg-slate-50 relative border-t border-slate-200">
+                <div className="max-w-7xl mx-auto px-4 md:px-6">
+                    <div className="text-center mb-16">
+                        <h2 className="text-4xl font-light text-black tracking-tight mb-4">How It Works</h2>
+                        <div className="w-12 h-1 bg-black mx-auto"></div>
+                    </div>
+                    <div className="grid md:grid-cols-4 gap-8 relative">
+                        {/* Connecting line for desktop */}
+                        <div className="hidden md:block absolute top-1/2 left-0 w-full h-[1px] bg-slate-200 -translate-y-1/2 z-0"></div>
+
+                        {[
+                            { step: "01", title: "Tell Me What You Need", desc: "Send me your idea, requirements or existing website." },
+                            { step: "02", title: "Plan", desc: "I'll recommend the appropriate approach and scope." },
+                            { step: "03", title: "Build", desc: "Design, development, testing and refinement." },
+                            { step: "04", title: "Launch", desc: "Deploy the finished project and provide post-launch support." }
+                        ].map((item, idx) => (
+                            <div key={idx} className={`relative z-10 p-6 md:p-8 border rounded-2xl flex flex-col items-center text-center transition-all duration-500 transform ${activeStep === idx ? 'bg-white border-black shadow-xl scale-105 -translate-y-2' : 'bg-slate-50 border-slate-200 shadow-sm scale-100'}`}>
+                                <div className={`w-12 h-12 rounded-full flex items-center justify-center font-bold font-mono text-lg mb-6 shadow-md transition-colors duration-500 ${activeStep === idx ? 'bg-black text-white' : 'bg-slate-200 text-slate-500'}`}>
+                                    {item.step}
+                                </div>
+                                <h4 className={`text-xl font-bold mb-3 transition-colors duration-500 ${activeStep === idx ? 'text-black' : 'text-slate-700'}`}>{item.title}</h4>
+                                <p className={`text-sm leading-relaxed transition-colors duration-500 ${activeStep === idx ? 'text-slate-800' : 'text-slate-500'}`}>{item.desc}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
             </section>
 
             {/* Customer Reviews */}
@@ -302,7 +332,7 @@ const FreelanceDashboard = () => {
                                 </motion.div>
                             </AnimatePresence>
                         </div>
-                        
+
                         {/* Pagination Dots */}
                         <div className="flex justify-center mt-8 gap-2">
                             {freelanceReviews.map((_, idx) => (
@@ -320,12 +350,80 @@ const FreelanceDashboard = () => {
             {/* Re-using the Freelance Services and Contact form */}
             <Freelance />
 
+            {/* Why Work With Me? */}
+            <section className="py-24 bg-white relative">
+                <div className="max-w-7xl mx-auto px-4 md:px-6">
+                    <div className="text-center mb-16">
+                        <h2 className="text-4xl font-light text-black tracking-tight mb-4">Why Work With Me?</h2>
+                        <div className="w-12 h-1 bg-black mx-auto"></div>
+                    </div>
+                    <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+                        {[
+                            "Direct communication with the developer",
+                            "Modern responsive websites",
+                            "Mobile-first development",
+                            "Performance-conscious development",
+                            "SEO fundamentals",
+                            "Custom integrations and automation",
+                            "Clear communication",
+                            "Post-launch support"
+                        ].map((benefit, idx) => (
+                            <div key={idx} className="flex flex-col justify-center items-center text-center p-8 border border-slate-200 rounded-2xl bg-slate-50 hover:bg-slate-100 transition-colors shadow-sm">
+                                <span className="text-slate-900 font-semibold text-lg">{benefit}</span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
 
-            <MobileContactModal 
-                isOpen={isMobileFormOpen} 
-                onClose={() => setIsMobileFormOpen(false)} 
+
+            {/* Free Website Review Teaser */}
+            <section className="py-24 bg-white relative border-t border-slate-200">
+                <div className="max-w-4xl mx-auto px-4 md:px-6 text-center">
+                    <h2 className="text-4xl font-light text-black tracking-tight mb-6">
+                        Not sure what's holding your website back?
+                    </h2>
+                    <p className="text-xl text-slate-600 mb-10 leading-relaxed font-light">
+                        I'll personally review your website and identify 3–5 practical improvements across UX, mobile experience, performance, SEO and conversion.
+                    </p>
+                    <Link
+                        to="/freelance/free-website-review"
+                        className="inline-flex items-center justify-center px-8 py-4 bg-black text-white rounded-lg font-semibold uppercase tracking-widest text-xs hover:bg-slate-800 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                    >
+                        Get a Free Website Review &rarr;
+                    </Link>
+                </div>
+            </section>
+
+
+            {/* Final CTA */}
+            <section className="py-32 bg-white relative border-t border-slate-200 text-center">
+                <div className="max-w-3xl mx-auto px-4 md:px-6">
+                    <h2 className="text-5xl font-light text-black tracking-tight mb-6">Have an idea? Let's build it.</h2>
+                    <p className="text-xl text-slate-600 mb-12 leading-relaxed font-light">
+                        Whether you need a new website, an e-commerce store, a redesign or a custom web application, tell me what you're trying to achieve.
+                    </p>
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                        <button
+                            onClick={() => setIsMobileFormOpen(true)}
+                            className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 bg-black text-white rounded-lg font-semibold uppercase tracking-widest text-xs hover:bg-slate-800 transition-colors"
+                        >
+                            Start a Project &rarr;
+                        </button>
+                        <Link
+                            to="/freelance/free-website-review"
+                            className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 bg-transparent border-2 border-black text-black rounded-lg font-semibold uppercase tracking-widest text-xs hover:bg-slate-50 transition-colors"
+                        >
+                            Get a Free Website Review &rarr;
+                        </Link>
+                    </div>
+                </div>
+            </section>
+
+            <MobileContactModal
+                isOpen={isMobileFormOpen}
+                onClose={() => setIsMobileFormOpen(false)}
             />
-            <FreelancePopup />
         </div>
     );
 };

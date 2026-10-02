@@ -200,7 +200,7 @@ const Contact = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setStatus('loading');
-        try {
+        try {z
             await api.post('/contact/', formData);
             setSubmittedName(formData.name.split(' ')[0]);
             setStatus('success');

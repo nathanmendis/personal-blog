@@ -32,72 +32,31 @@ const Freelance = () => {
         }
     };
 
-    const categories = [
+    const buildServices = [
         {
-            name: "Web & E-Commerce",
-            services: [
-                {
-                    title: "Full-Stack Solutions",
-                    description: "End-to-end application development, taking your visionary concept from initial architecture to final production deployment.",
-                    icon: <Code size={24} className="text-black" />
-                },
-                {
-                    title: "Shopify & E-Commerce (Specialisation)",
-                    description: "Custom Shopify themes, headless commerce solutions, and checkout optimizations designed to maximize your conversion rates.",
-                    icon: <ShoppingBag size={24} className="text-black" />
-                },
-                {
-                    title: "Frontend Engineering",
-                    description: "Crafting pixel-perfect, highly interactive user interfaces using modern frameworks like React and Next.js, tailored for performance and aesthetics.",
-                    icon: <Monitor size={24} className="text-black" />
-                },
-                {
-                    title: "Backend Architecture",
-                    description: "Building robust, scalable, and secure server-side solutions and APIs using Node.js, Django, and modern cloud infrastructure.",
-                    icon: <Database size={24} className="text-black" />
-                },
-
-            ]
+            title: "Websites & Landing Pages",
+            description: "Modern responsive websites designed around your business goals.",
+            icon: <Monitor size={24} className="text-black" />
         },
         {
-            name: "Data & AI",
-            services: [
-                {
-                    title: "Agentic AI (Specialization)",
-                    description: "Designing and deploying autonomous AI agents capable of reasoning, planning, and executing complex multi-step tasks independently.",
-                    icon: <BrainCircuit size={24} className="text-black" />
-                },
-                {
-                    title: "AI Automation",
-                    description: "Integrating intelligent AI models into your workflows to automate complex decision-making and content generation.",
-                    icon: <Bot size={24} className="text-black" />
-                },
-                {
-                    title: "Data Science and ML",
-                    description: "Extracting actionable insights from your data and building custom machine learning models to predict trends and optimize operations.",
-                    icon: <LineChart size={24} className="text-black" />
-                }
-            ]
+            title: "E-commerce",
+            description: "Shopify stores, product pages, custom sections and conversion improvements.",
+            icon: <ShoppingBag size={24} className="text-black" />
         },
         {
-            name: "Optimization",
-            services: [
-                {
-                    title: "Automation",
-                    description: "Streamlining business processes with custom scripts and robust workflow automation to save time and reduce human error.",
-                    icon: <Workflow size={24} className="text-black" />
-                },
-                {
-                    title: "Performance Optimization",
-                    description: "Auditing and optimizing Core Web Vitals, SEO, and load times to ensure your web presence is blazingly fast and highly discoverable.",
-                    icon: <Zap size={24} className="text-black" />
-                },
-                {
-                    title: "UI/UX Design",
-                    description: "Translating brand identities into intuitive digital experiences with high-fidelity wireframing, prototyping, and modern design systems.",
-                    icon: <PenTool size={24} className="text-black" />
-                }
-            ]
+            title: "Web Applications",
+            description: "Custom React, Django, Node.js and full-stack applications.",
+            icon: <Code size={24} className="text-black" />
+        },
+        {
+            title: "AI & Automation",
+            description: "AI-powered features, integrations, APIs and workflow automation.",
+            icon: <Bot size={24} className="text-black" />
+        },
+        {
+            title: "Website Redesigns",
+            description: "Modernize outdated websites and improve UX, responsiveness and performance.",
+            icon: <Zap size={24} className="text-black" />
         }
     ];
 
@@ -116,7 +75,7 @@ const Freelance = () => {
                     </motion.div>
 
                     <h2 className="text-4xl md:text-5xl font-heading font-light text-black mb-6 tracking-wide">
-                        Solutions <span className="font-bold">We Offer</span>
+                        What I <span className="font-bold">Can Build</span>
                     </h2>
 
                     <p className="text-lg text-slate-600 max-w-2xl font-body leading-relaxed">
@@ -124,29 +83,24 @@ const Freelance = () => {
                     </p>
                 </div>
 
-                <div className="grid md:grid-cols-3 gap-8 lg:gap-12 mb-16 items-start">
-                    {categories.map((category, catIdx) => (
-                        <div key={catIdx} className="flex flex-col gap-6">
-                            <h3 className="text-lg font-semibold uppercase tracking-widest text-slate-800 mb-2 border-b-2 border-slate-900 pb-4">{category.name}</h3>
-                            {category.services.map((service, idx) => (
-                                <motion.div
-                                    key={idx}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: (catIdx * 0.1) + (idx * 0.1) }}
-                                    className="bg-white border border-slate-200 p-6 rounded-none hover:-translate-y-1 transition-transform duration-300 group shadow-sm hover:shadow-md"
-                                >
-                                    <div className="w-12 h-12 rounded-none border border-slate-200 bg-slate-50 flex items-center justify-center mb-4 group-hover:bg-black group-hover:border-black transition-colors duration-300">
-                                        {React.cloneElement(service.icon, { className: "group-hover:text-white transition-colors duration-300" })}
-                                    </div>
-                                    <h4 className="text-lg font-heading font-bold text-black mb-3">{service.title}</h4>
-                                    <p className="text-slate-500 font-body text-xs leading-relaxed">
-                                        {service.description}
-                                    </p>
-                                </motion.div>
-                            ))}
-                        </div>
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16 items-start">
+                    {buildServices.map((service, idx) => (
+                        <motion.div
+                            key={idx}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: idx * 0.1 }}
+                            className="bg-white border border-slate-200 p-6 rounded-none hover:-translate-y-1 transition-transform duration-300 group shadow-sm hover:shadow-md"
+                        >
+                            <div className="w-12 h-12 rounded-none border border-slate-200 bg-slate-50 flex items-center justify-center mb-4 group-hover:bg-black group-hover:border-black transition-colors duration-300">
+                                {React.cloneElement(service.icon, { className: "group-hover:text-white transition-colors duration-300" })}
+                            </div>
+                            <h4 className="text-lg font-heading font-bold text-black mb-3">{service.title}</h4>
+                            <p className="text-slate-500 font-body text-xs leading-relaxed">
+                                {service.description}
+                            </p>
+                        </motion.div>
                     ))}
                 </div>
 

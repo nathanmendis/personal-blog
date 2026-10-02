@@ -6,6 +6,7 @@ import BlogList from './pages/BlogList';
 import BlogDetail from './pages/BlogDetail';
 import ProjectsPage from './pages/ProjectsPage';
 import FreelanceDashboard from './pages/FreelanceDashboard';
+import FreeWebsiteReview from './pages/FreeWebsiteReview';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/blog/:id" element={<BlogDetail />} />
           <Route path="/projects" element={<ProjectsPage />} />
           <Route path="/freelance" element={<FreelanceDashboard />} />
+          <Route path="/freelance/free-website-review" element={<FreeWebsiteReview />} />
         </Routes>
       </Layout>
     </Router>

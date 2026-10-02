@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sparkles, X, ArrowRight } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const ArchiveNotification = () => {
     const [isVisible, setIsVisible] = useState(false);
     const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
         // Show after a delay on every refresh, queued after Freelance offer
@@ -23,6 +24,10 @@ const ArchiveNotification = () => {
         handleDismiss();
         navigate('/projects');
     };
+
+    if (location.pathname !== '/') {
+        return null;
+    }
 
     return (
         <AnimatePresence>
